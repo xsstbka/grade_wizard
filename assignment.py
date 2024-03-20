@@ -4,7 +4,7 @@ import os
 class Assignment:
     def __init__(self, content, file_name):
         self.content = content
-        self.file_name = file_name  # 文件名属性
+        self.file_name = file_name
         self.initial_grade = None
         self.initial_feedback = None
         self.final_grade = None
@@ -16,7 +16,7 @@ class Assignment:
 
     @staticmethod
     def from_pdf(file_path):
-        file_name = os.path.basename(file_path)  # 从文件路径提取文件名
+        file_name = os.path.basename(file_path)
         with open(file_path, 'rb') as file:
             reader = PdfReader(file)
             content = ""
@@ -26,7 +26,7 @@ class Assignment:
 
     @staticmethod
     def from_txt(file_path):
-        file_name = os.path.basename(file_path)  # 从文件路径提取文件名
+        file_name = os.path.basename(file_path)  
         with open(file_path, 'r', encoding='utf-8') as file:
             content = file.read()
         return Assignment(content, file_name)

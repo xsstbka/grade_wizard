@@ -21,23 +21,18 @@ class GradingManager:
         self.ui = UserInterface()
         self.grade_report = GradeReport()
 
-#    def load_criteria(self):
-#        for filename in os.listdir(self.criteria_path):
-#            if filename.endswith('.json'):
-#                self.grading_criteria.append(GradingCriteria.from_json(os.path.join(self.criteria_path, filename)))
-                
     def load_criteria(self):
         for filename in os.listdir(self.criteria_path):
             file_path = os.path.join(self.criteria_path, filename)
-            if filename.endswith('.txt'):  # Check for text files
-                criteria = GradingCriteria.from_text(file_path)  # Use the correct method
+            if filename.endswith('.txt'):
+                criteria = GradingCriteria.from_text(file_path)
                 self.grading_criteria.append(criteria)
 
 
     def load_assignments(self):
         for filename in os.listdir(self.assignments_path):
             file_path = os.path.join(self.assignments_path, filename)
-            file_name = os.path.basename(file_path)  # 从文件路径获取文件名
+            file_name = os.path.basename(file_path)
             
             if filename.endswith('.pdf'):
                 self.assignments.append(Assignment.from_pdf(file_path))
@@ -47,7 +42,7 @@ class GradingManager:
                     soup = BeautifulSoup(html_content, 'html.parser')
                     text = soup.get_text()
                     self.assignments.append(Assignment.from_text(text, file_name))
-            elif filename.endswith('.txt'):  # 确保对TXT文件的支持
+            elif filename.endswith('.txt'):
                 with open(file_path, 'r', encoding='utf-8') as file:
                     text = file.read()
                     self.assignments.append(Assignment.from_text(text, file_name))
@@ -57,7 +52,7 @@ class GradingManager:
         for assignment in self.assignments:
             initial_grade, feedback = self.grader.grade(assignment, self.grading_criteria)
             assignment.set_initial_grade(initial_grade)
-            assignment.initial_feedback = feedback  # 这里设置反馈
+            assignment.initial_feedback = feedback  
 
 
     def review_grades(self):

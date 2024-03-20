@@ -22,35 +22,13 @@ class GPT4Grader:
         )
         response = completion.choices[0].message.content
 
-        # 使用_parse_response方法来处理响应
+        
         initial_grade, feedback = self._parse_response(response)
         return initial_grade, feedback
   
     def regrade(self, assignment, grading_criteria):
-        # 调用grade方法并返回其结果
+        
         return self.grade(assignment, grading_criteria)
-
-#    def _create_prompt(self, assignment_content, grading_criteria):
-#        # 构建并返回用于评分的提示
-#        criteria_text = "\n".join([c for c in grading_criteria])  # 假设grading_criteria是一个字符串列表
-#        return f"Rate the following assignment based on criteria:\n{criteria_text}\nThe assignment content is:\n\n{assignment_content}\n\nPlease provide a score out of 100 and any feedback."
-
-#    def _create_prompt(self, assignment_content, grading_criteria):
-#        # Convert the grading criteria into a text format if it's not already
-#        # This assumes grading_criteria is a list or similar structure that needs to be joined into a single string
-#        criteria_text = "\n".join(grading_criteria) if isinstance(grading_criteria, (list, tuple)) else grading_criteria
-#
-#        prompt = (
-#            "Rate the following assignment based on criteria:\n"
-#            f"{criteria_text}\n\n"
-#            "The assignment content is:\n\n"
-#            f"{assignment_content}\n\n"
-#            "Please provide a score out of 100 and any feedback."
-#        )
-#
-#        return prompt
-
-
 
     def _create_prompt(self, assignment_content, grading_criteria):
         # Construct criteria text, handling both GradingCriteria objects and strings
